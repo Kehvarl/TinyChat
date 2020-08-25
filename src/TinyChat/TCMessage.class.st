@@ -17,6 +17,15 @@ TCMessage class >> from: aSender text: aText [
 	^ self new sender: aSender; text: aText; yourself.
 ]
 
+{ #category : #'instance creation' }
+TCMessage >> fromString: aString [
+	"Compose a message from a string of this form 'sender>message'."
+	| items |
+	items := aString substrings: separator.
+	self sender: items first.
+	self text: items second.
+]
+
 { #category : #initialization }
 TCMessage >> initialize [ 
 	super initialize.
