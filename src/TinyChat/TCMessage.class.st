@@ -18,6 +18,13 @@ TCMessage class >> from: aSender text: aText [
 ]
 
 { #category : #'instance creation' }
+TCMessage class >> fromString: aString [
+	^ self new 
+		fromString: aString;
+		yourself.
+]
+
+{ #category : #'instance creation' }
 TCMessage >> fromString: aString [
 	"Compose a message from a string of this form 'sender>message'."
 	| items |
