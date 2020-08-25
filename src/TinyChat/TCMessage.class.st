@@ -23,6 +23,15 @@ TCMessage >> initialize [
 	separator := '>'.
 ]
 
+{ #category : #printing }
+TCMessage >> printOn: aStream [
+	aStream
+		<< self sender;
+		<< separator;
+		<< self text;
+		<< (String with: Character cr with: Character lf)
+]
+
 { #category : #accessing }
 TCMessage >> sender [
 	^ sender
