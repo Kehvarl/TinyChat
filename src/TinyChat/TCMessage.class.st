@@ -12,6 +12,12 @@ Class {
 	#category : #TinyChat
 }
 
+{ #category : #initialization }
+TCMessage >> initialize [ 
+	super initialize.
+	separator := '>'.
+]
+
 { #category : #accessing }
 TCMessage >> sender [
 	^ sender
