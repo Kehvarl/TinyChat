@@ -12,6 +12,11 @@ Class {
 	#category : #TinyChat
 }
 
+{ #category : #'instance creation' }
+TCMessage class >> from: aSender text: aText [
+	^ self new sender: aSender; text: aText; yourself.
+]
+
 { #category : #initialization }
 TCMessage >> initialize [ 
 	super initialize.
