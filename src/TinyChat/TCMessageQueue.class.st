@@ -16,6 +16,14 @@ TCMessageQueue >> add: aMessage [
 ]
 
 { #category : #initialization }
+TCMessageQueue >> formattedMessagesFrom: aMessageNumber [
+	^ String streamContents: [ : formattedMessageStream |
+		(self listFrom: aMessageNumber)
+			do: [ :m | formattedMessageStream << m printString ] 
+	]
+]
+
+{ #category : #initialization }
 TCMessageQueue >> initialize [ 
 	super initialize.
 	messages := OrderedCollection new.
