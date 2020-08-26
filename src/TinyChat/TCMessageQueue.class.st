@@ -26,3 +26,8 @@ TCMessageQueue >> reset [
 	messages removeAll.
 	
 ]
+
+{ #category : #initialization }
+TCMessageQueue >> size [
+	^ messages size.
+]
