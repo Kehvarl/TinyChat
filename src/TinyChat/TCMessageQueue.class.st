@@ -22,6 +22,13 @@ TCMessageQueue >> initialize [
 ]
 
 { #category : #initialization }
+TCMessageQueue >> listFrom: anIndex [
+	^ (anIndex > 0 and: [  anIndex <= messages size ])
+	ifTrue: [ messages copyFrom: anIndex to: messages size ]
+	ifFalse: [ #() ]
+]
+
+{ #category : #initialization }
 TCMessageQueue >> reset [ 
 	messages removeAll.
 	
