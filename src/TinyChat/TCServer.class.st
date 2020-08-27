@@ -11,6 +11,15 @@ Class {
 	#category : #'TinyChat-server'
 }
 
+{ #category : #public }
+TCServer class >> startOn: aPortNumber [
+	^ self new
+		initializePort: aPortNumber;
+		registerRoutes;
+		registerErrorHandlers;
+		yourself.
+]
+
 { #category : #initialization }
 TCServer >> initialize [ 
 	super initialize.
