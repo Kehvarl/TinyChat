@@ -27,6 +27,12 @@ TCServer >> initializePort: anInteger [
 ]
 
 { #category : #initialization }
+TCServer >> registerErrorHandlers [
+	teapotServer 
+		exception: KeyNotFound -> (TeaResponse notFound body: 'No such message')
+]
+
+{ #category : #initialization }
 TCServer >> registerRoutes [
 	teapotServer
 		GET: '/messages/count' -> (Send message: #messageCount to: self);
