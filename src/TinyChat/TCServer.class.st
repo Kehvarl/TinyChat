@@ -20,6 +20,11 @@ TCServer class >> startOn: aPortNumber [
 		yourself.
 ]
 
+{ #category : #accessing }
+TCServer >> addMessage: aRequest [
+	messagesQueue add: (TCMessage from: (aRequest at: #sender) text: (aRequest at: #text)).
+]
+
 { #category : #initialization }
 TCServer >> initialize [ 
 	super initialize.
@@ -33,6 +38,11 @@ TCServer >> initializePort: anInteger [
 		#port -> anInteger.
 		#debugMode -> true }.
 	teapotServer start.
+]
+
+{ #category : #accessing }
+TCServer >> messageCount [ 
+	^ messagesQueue size.
 ]
 
 { #category : #initialization }
