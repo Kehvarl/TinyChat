@@ -48,3 +48,9 @@ TCServer >> registerRoutes [
 		GET: '/messages/<id:IsInteger>' -> (Send message: #messagesFrom: to: self);
 		POST: '/messages/add' -> (Send message: #addMEssageL to: self)
 ]
+
+{ #category : #accessing }
+TCServer >> stop [ 
+	teapotServer stop.
+	messagesQueue reset.
+]
