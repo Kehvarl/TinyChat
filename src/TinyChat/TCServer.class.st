@@ -45,6 +45,11 @@ TCServer >> messageCount [
 	^ messagesQueue size.
 ]
 
+{ #category : #accessing }
+TCServer >> messagesFrom: request [ 
+	^ messagesQueue formattedMessagesFrom: (request at: #id)
+]
+
 { #category : #initialization }
 TCServer >> registerErrorHandlers [
 	teapotServer 
