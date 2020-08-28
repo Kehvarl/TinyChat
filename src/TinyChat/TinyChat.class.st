@@ -47,3 +47,11 @@ TinyChat >> initialize [
 	lastMessageIndex := 0.
 	messages := OrderedCollection new.
 ]
+
+{ #category : #initialization }
+TinyChat >> readLastMessageID [
+	| id |
+	id := (ZnClient new url: self cmdLastMessageID; get) asInteger.
+	id = 0 ifTrue: [ id := 1 ].
+	^ id.
+]
