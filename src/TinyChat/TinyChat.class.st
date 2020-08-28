@@ -16,6 +16,21 @@ Class {
 }
 
 { #category : #initialization }
+TinyChat >> cmdLastMessageID [
+	^ self command: '/messages/count'
+]
+
+{ #category : #initialization }
+TinyChat >> cmdMessagesFromLastIndexToEnd [
+	^ self command: '/messages' argument: lastMessageIndex 
+]
+
+{ #category : #initialization }
+TinyChat >> cmdNewMessage [
+	^ self command: '/messages/add'
+]
+
+{ #category : #initialization }
 TinyChat >> command: aPath [
 	^ '{1}{2}' format: { url . aPath  }.
 ]
