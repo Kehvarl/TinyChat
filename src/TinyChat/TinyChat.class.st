@@ -16,6 +16,16 @@ Class {
 }
 
 { #category : #initialization }
+TinyChat >> command: aPath [
+	^ '{1}{2}' format: { url . aPath  }.
+]
+
+{ #category : #initialization }
+TinyChat >> command: aPath argument: anArgument [
+	^ '{1}{2}/{3}' format: { url . aPath  . anArgument asString}.
+]
+
+{ #category : #initialization }
 TinyChat >> initialize [
 	super initialize.
 	exit := false.
