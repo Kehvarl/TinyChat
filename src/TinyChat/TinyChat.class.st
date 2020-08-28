@@ -55,3 +55,21 @@ TinyChat >> readLastMessageID [
 	id = 0 ifTrue: [ id := 1 ].
 	^ id.
 ]
+
+{ #category : #initialization }
+TinyChat >> readMissingMessages [
+	"Gets the new messages that have been posted since the last request."
+
+	| response receivedMessages |
+	response := ZnClient new
+		url: self cmdMessagesFromLastIndexToEnd;
+		get.
+	^ response
+		ifNil: [ 0 ]
+		ifNotNil: [ :arg | 
+			receivedMessages := response
+				substrings: (String with: Character cr with: Character lf).
+			receivedMessages
+				do: [ :msg | messages add: (TCMessage fromString: msg) ].
+			receivedMessages size ]
+]
