@@ -20,6 +20,11 @@ TCServer class >> startOn: aPortNumber [
 		yourself.
 ]
 
+{ #category : #public }
+TCServer class >> stopAll [
+	self allInstancesDo: #stop
+]
+
 { #category : #accessing }
 TCServer >> addMessage: aRequest [
 	messagesQueue add: (TCMessage from: (aRequest at: #sender) text: (aRequest at: #text)).
