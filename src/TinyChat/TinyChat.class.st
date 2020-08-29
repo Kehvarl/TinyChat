@@ -73,3 +73,13 @@ TinyChat >> readMissingMessages [
 				do: [ :msg | messages add: (TCMessage fromString: msg) ].
 			receivedMessages size ]
 ]
+
+{ #category : #commands }
+TinyChat >> refreshMessages [
+	[ 
+		[ exit ] whileFalse: [
+			(Delay forSeconds: 2) wait.
+			lastMessageIndex := lastMessageIndex + (self readMissingMessages).
+			console print: messages.
+		] ] fork
+]
