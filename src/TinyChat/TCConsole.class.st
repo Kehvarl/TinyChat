@@ -48,6 +48,12 @@ TCConsole >> list [
 	^ list
 ]
 
+{ #category : #printing }
+TCConsole >> print: aCollectionOfMessages [
+	list items: (aCollectionOfMessages collect: [ :m |
+		m printString ]).
+]
+
 { #category : #accessing }
 TCConsole >> title [ 
 	^ 'TinyChat'.
