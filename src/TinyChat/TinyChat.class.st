@@ -15,6 +15,13 @@ Class {
 	#category : #'TinyChat-client'
 }
 
+{ #category : #'as yet unclassified' }
+TinyChat class >> connect: aHost port: aPort login: aLogin [
+	^ self new 
+		host: aHost port: aPort login: aLogin;
+		start.
+]
+
 { #category : #'command messages' }
 TinyChat >> cmdLastMessageID [
 	^ self command: '/messages/count'
@@ -22,7 +29,7 @@ TinyChat >> cmdLastMessageID [
 
 { #category : #'command messages' }
 TinyChat >> cmdMessagesFromLastIndexToEnd [
-	^ self command: '/messages' argument: lastMessageIndex 
+	^ self command: '/messages' argument: (lastMessageIndex ifNil: [ 1 ]).
 ]
 
 { #category : #'command messages' }
@@ -47,6 +54,12 @@ TinyChat >> disconnect [
 ]
 
 { #category : #initialization }
+TinyChat >> host: aHost port: aPort login: aLogin [
+	url := 'http://', aHost, ':', aPort greaseString.
+	login := aLogin.
+]
+
+{ #category : #initialization }
 TinyChat >> initialize [
 	super initialize.
 	exit := false.
@@ -67,17 +80,16 @@ TinyChat >> readMissingMessages [
 	"Gets the new messages that have been posted since the last request."
 
 	| response receivedMessages |
-	response := ZnClient new
-		url: self cmdMessagesFromLastIndexToEnd;
-		get.
+	response := (ZnClient new url: self cmdMessagesFromLastIndexToEnd;
+		get).
 	^ response
 		ifNil: [ 0 ]
-		ifNotNil: [ :arg | 
-			receivedMessages := response
-				substrings: (String with: Character cr with: Character lf).
-			receivedMessages
-				do: [ :msg | messages add: (TCMessage fromString: msg) ].
-			receivedMessages size ]
+		ifNotNil: [
+			receivedMessages := response substrings: (String crlf).
+			receivedMessages do: [ :msg | messages add: (TCMessage
+				fromString: msg) ].
+			receivedMessages size.
+		].
 ]
 
 { #category : #commands }
@@ -108,4 +120,12 @@ TinyChat >> sendNewMessage: aMessage [
 		formAt: 'sender' put: (aMessage sender);
 		formAt: 'text' put: (aMessage text);
 		post
+]
+
+{ #category : #initialization }
+TinyChat >> start [
+	console := TCConsole attach: self.
+	self sendNewMessage: (TCMessage from: login text: 'I joined the chat room').
+	lastMessageIndex := self readLastMessageID.
+	self refreshMessages.
 ]
