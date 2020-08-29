@@ -26,6 +26,18 @@ TCConsole >> chat: anObject [
 	chat := anObject
 ]
 
+{ #category : #initialization }
+TCConsole >> initializeWidgets [ 
+	list := ListModel new.
+	input := TextInputFieldModel new 
+		ghostText: 'Type your message here...';
+		enabled: true;
+		acceptBlock: [ :string |
+			chat send: string.
+			input text: '' ].
+	self focusOrder add: input.
+]
+
 { #category : #accessing }
 TCConsole >> input [
 	^ input
