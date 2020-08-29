@@ -40,6 +40,12 @@ TinyChat >> command: aPath argument: anArgument [
 	^ '{1}{2}/{3}' format: { url . aPath  . anArgument asString}.
 ]
 
+{ #category : #commands }
+TinyChat >> disconnect [ 
+	self sendNewMessage: (TCMessage from: login text: 'I exited from the chat room.').
+	exit := true.
+]
+
 { #category : #initialization }
 TinyChat >> initialize [
 	super initialize.
