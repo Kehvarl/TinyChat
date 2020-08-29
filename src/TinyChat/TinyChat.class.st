@@ -29,7 +29,7 @@ TinyChat >> cmdLastMessageID [
 
 { #category : #'command messages' }
 TinyChat >> cmdMessagesFromLastIndexToEnd [
-	^ self command: '/messages' argument: lastMessageIndex 
+	^ self command: '/messages' argument: (lastMessageIndex ifNil: [ 1 ]).
 ]
 
 { #category : #'command messages' }
@@ -80,17 +80,16 @@ TinyChat >> readMissingMessages [
 	"Gets the new messages that have been posted since the last request."
 
 	| response receivedMessages |
-	response := ZnClient new
-		url: self cmdMessagesFromLastIndexToEnd;
-		get.
+	response := (ZnClient new url: self cmdMessagesFromLastIndexToEnd;
+		get).
 	^ response
 		ifNil: [ 0 ]
-		ifNotNil: [ :arg | 
-			receivedMessages := response
-				substrings: (String with: Character cr with: Character lf).
-			receivedMessages
-				do: [ :msg | messages add: (TCMessage fromString: msg) ].
-			receivedMessages size ]
+		ifNotNil: [
+			receivedMessages := response substrings: (String crlf).
+			receivedMessages do: [ :msg | messages add: (TCMessage
+				fromString: msg) ].
+			receivedMessages size.
+		].
 ]
 
 { #category : #commands }
