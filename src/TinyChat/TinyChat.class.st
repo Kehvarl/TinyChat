@@ -15,27 +15,27 @@ Class {
 	#category : #'TinyChat-client'
 }
 
-{ #category : #initialization }
+{ #category : #'command messages' }
 TinyChat >> cmdLastMessageID [
 	^ self command: '/messages/count'
 ]
 
-{ #category : #initialization }
+{ #category : #'command messages' }
 TinyChat >> cmdMessagesFromLastIndexToEnd [
 	^ self command: '/messages' argument: lastMessageIndex 
 ]
 
-{ #category : #initialization }
+{ #category : #'command messages' }
 TinyChat >> cmdNewMessage [
 	^ self command: '/messages/add'
 ]
 
-{ #category : #initialization }
+{ #category : #'command messages' }
 TinyChat >> command: aPath [
 	^ '{1}{2}' format: { url . aPath  }.
 ]
 
-{ #category : #initialization }
+{ #category : #'command messages' }
 TinyChat >> command: aPath argument: anArgument [
 	^ '{1}{2}/{3}' format: { url . aPath  . anArgument asString}.
 ]
@@ -48,7 +48,7 @@ TinyChat >> initialize [
 	messages := OrderedCollection new.
 ]
 
-{ #category : #initialization }
+{ #category : #commands }
 TinyChat >> readLastMessageID [
 	| id |
 	id := (ZnClient new url: self cmdLastMessageID; get) asInteger.
@@ -56,7 +56,7 @@ TinyChat >> readLastMessageID [
 	^ id.
 ]
 
-{ #category : #initialization }
+{ #category : #commands }
 TinyChat >> readMissingMessages [
 	"Gets the new messages that have been posted since the last request."
 
