@@ -122,3 +122,11 @@ TinyChat >> sendNewMessage: aMessage [
 		formAt: 'text' put: (aMessage text);
 		post
 ]
+
+{ #category : #initialization }
+TinyChat >> start [
+	console := TCConsole attach: self.
+	self sendNewMessage: (TCMessage from: login text: 'I joined the chat room').
+	lastMessageIndex := self readLastMessageID.
+	self refreshMessages.
+]
