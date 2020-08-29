@@ -12,6 +12,14 @@ Class {
 	#category : #'TinyChat-client'
 }
 
+{ #category : #initialization }
+TCConsole class >> attach: aTinyChat [
+	| window |
+	window := self new chat: aTinyChat.
+	window openWithSpec whenClosedDo: [ aTinyChat disconnect  ].
+	^ window.
+]
+
 { #category : #specs }
 TCConsole class >> defaultSpec [ 
 	<spec: #default>
