@@ -15,6 +15,13 @@ Class {
 	#category : #'TinyChat-client'
 }
 
+{ #category : #'as yet unclassified' }
+TinyChat class >> connect: aHost port: aPort login: aLogin [
+	^ self new 
+		host: aHost port: aPort login: aLogin;
+		start.
+]
+
 { #category : #'command messages' }
 TinyChat >> cmdLastMessageID [
 	^ self command: '/messages/count'
@@ -44,6 +51,12 @@ TinyChat >> command: aPath argument: anArgument [
 TinyChat >> disconnect [ 
 	self sendNewMessage: (TCMessage from: login text: 'I exited from the chat room.').
 	exit := true.
+]
+
+{ #category : #initialization }
+TinyChat >> host: aHost port: aPort login: aLogin [
+	url := 'http://', aHost, ':', aPort greaseString.
+	login := aLogin.
 ]
 
 { #category : #initialization }
