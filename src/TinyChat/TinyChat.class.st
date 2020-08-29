@@ -83,3 +83,12 @@ TinyChat >> refreshMessages [
 			console print: messages.
 		] ] fork
 ]
+
+{ #category : #commands }
+TinyChat >> sendNewMessage: aMessage [
+	^ ZnClient new
+		url: self cmdNewMessage;
+		formAt: 'sender' put: (aMessage sender);
+		formAt: 'text' put: (aMessage text);
+		post
+]
