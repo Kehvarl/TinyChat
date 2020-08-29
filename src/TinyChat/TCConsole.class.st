@@ -3,7 +3,7 @@ A display console for TinyChat
 "
 Class {
 	#name : #TCConsole,
-	#superclass : #Object,
+	#superclass : #ComposableModel,
 	#instVars : [
 		'chat',
 		'list',
