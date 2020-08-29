@@ -26,3 +26,8 @@ TCConsole >> input [
 TCConsole >> list [
 	^ list
 ]
+
+{ #category : #accessing }
+TCConsole >> title [ 
+	^ 'TinyChat'.
+]
