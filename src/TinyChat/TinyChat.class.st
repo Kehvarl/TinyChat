@@ -15,7 +15,7 @@ Class {
 	#category : #'TinyChat-client'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 TinyChat class >> connect: aHost port: aPort login: aLogin [
 	^ self new 
 		host: aHost port: aPort login: aLogin;
